@@ -10,6 +10,7 @@ public class Piece {
     private int x;
     private int y;
     private int lastMoved = 0;
+    private boolean canEnPassent = true;
 
     public Piece(String color, Point location){
         this.color = color;
@@ -63,5 +64,13 @@ public class Piece {
 
     public void setSquares(ArrayList<Square> s){
         squares = s;
+    }
+
+    public boolean isCanEnPassent() {
+        return canEnPassent;
+    }
+
+    public void setCanEnPassent(boolean canEnPassent) {
+        this.canEnPassent = canEnPassent;
     }
 }

@@ -199,16 +199,16 @@ public class Board {
 
                 if (piece.getClass() == Pawn.class || piece.getClass() == King.class || piece.getClass() == Rook.class){
                     if (piece.getClass() == Pawn.class){
-                        if (piece.getLastMoved() > 1)
-                            piece.setHasMove(false);
-                        else if (Objects.equals(piece.getColor(), "white")){
-                            if (piece.getY() != 4){
-                                piece.addLastMove();
+                        if (piece.getColor().equals("white")){
+                            if (piece.getY() != 5) {
+                                piece.setHasMove(false);
+                                piece.setCanEnPassent(false);
                             }
                         }
-                        else if (piece.getColor().equals("black")){
-                            if (piece.getY() != 3){
-                                piece.addLastMove();
+                        else {
+                            if (piece.getY() != 4) {
+                                piece.setHasMove(false);
+                                piece.setCanEnPassent(false);
                             }
                         }
                     }else

@@ -86,13 +86,13 @@ public class Pawn extends Piece{
 
                 //en passant
                 if (s[y][x+1].getPiece() != null){
-                    if (s[y][x+1].getPiece().getClass() == Pawn.class && s[y][x+1].getPiece().getLastMoved() == 1){
+                    if (s[y][x+1].getPiece().getClass() == Pawn.class && s[y][x+1].getPiece().isCanEnPassent()){
                         squares.add(s[y-1][x+1]);
                     }
                 }
 
                 if (s[y][x-1].getPiece() != null){
-                    if (s[y][x-1].getPiece().getClass() == Pawn.class && s[y][x-1].getPiece().getLastMoved() == 1){
+                    if (s[y][x-1].getPiece().getClass() == Pawn.class && s[y][x-1].getPiece().isCanEnPassent()){
                         squares.add(s[y-1][x-1]);
                     }
                 }
