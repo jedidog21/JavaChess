@@ -50,7 +50,7 @@ public class King extends Piece{
                     //Castling
                     if (s[super.getY()][super.getX()+1].getPiece() == null && s[super.getY()][super.getX()+2].getPiece() == null) {
                         if (s[super.getY()][super.getX() + 3].getPiece().getClass().equals(Rook.class)) {
-                            if (super.getHasMove() && s[super.getY()][super.getX() + 3].getPiece().getHasMove()) {
+                            if (super.getHasNotMove() && s[super.getY()][super.getX() + 3].getPiece().getHasNotMove()) {
                                 squares.add(s[super.getY()][super.getX() + 2]);
                             }
                         }
@@ -59,7 +59,7 @@ public class King extends Piece{
                     //Long castling
                     if (s[super.getY()][super.getX()-1].getPiece() == null && s[super.getY()][super.getX()-2].getPiece() == null && s[super.getY()][super.getX()-3].getPiece() == null) {
                         if (s[super.getY()][super.getX() - 4].getPiece().getClass().equals(Rook.class)) {
-                            if (super.getHasMove() && s[super.getY()][super.getX() - 4].getPiece().getHasMove()) {
+                            if (super.getHasNotMove() && s[super.getY()][super.getX() - 4].getPiece().getHasNotMove()) {
                                 squares.add(s[super.getY()][super.getX() - 2]);
                             }
                         }

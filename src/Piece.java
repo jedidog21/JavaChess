@@ -10,7 +10,7 @@ public class Piece {
     private int x;
     private int y;
     private int lastMoved = 0;
-    private boolean canEnPassent = true;
+    private boolean canEnPassent = false;
 
     public Piece(String color, Point location){
         this.color = color;
@@ -21,7 +21,7 @@ public class Piece {
     public String getColor() {
             return color;
     }
-    public boolean getHasMove(){
+    public boolean getHasNotMove(){
         return hasMove;
     }
     public JLabel getImage(){
@@ -40,7 +40,7 @@ public class Piece {
         lastMoved++;
     }
 
-    public void setHasMove(boolean f){
+    public void setHasNotMove(boolean f){
         hasMove = f;
     }
     public void setX(int x){

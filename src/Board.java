@@ -3,7 +3,6 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class Board {
     private static Square[][] squares;
@@ -149,16 +148,16 @@ public class Board {
 
         if (squares[x][y].getPiece()!= null){
             if (squares[x][y].getPiece().getColor().equals(turn)) {
-                s = getSquare(x, y).getPiece().findSquares(squares);//delete this once game loop is added
-                s = getSquare(x, y).getPiece().getSquares();
+                s = getSquare(x, y).getPiece().findSquares(squares);
             }
         }
         addToSquare(s);
     }
 
     public void move(int x, int y){
-        if (squares[x][y].getCanMoveTo()){
-            Square square = squares[x][y];
+        Square square = squares[x][y];
+        if (square.getCanMoveTo()){
+            System.out.println(square.getLocation());
             if (piece != null){
                 if (square.getPiece() != null){
                     square.getPiece().getImage().setIcon(null);
@@ -197,22 +196,44 @@ public class Board {
                 piece.setX(square.getLocation().x);
                 piece.setY(square.getLocation().y);
 
-                if (piece.getClass() == Pawn.class || piece.getClass() == King.class || piece.getClass() == Rook.class){
-                    if (piece.getClass() == Pawn.class){
-                        if (piece.getColor().equals("white")){
-                            if (piece.getY() != 5) {
-                                piece.setHasMove(false);
-                                piece.setCanEnPassent(false);
+                if(piece.getClass().equals(Pawn.class)){
+                    if (piece.getColor().equals("black") && piece.getY() == 5){
+                        if (squares[4][piece.getX()].getPiece() != null && squares[4][piece.getX()].getPiece().isCanEnPassent()){
+                            squares[4][piece.getX()].getPiece().getImage().setIcon(null);
+                            squares[4][piece.getX()].setPiece(null);
+
+                        }
+                    }
+                    else if (piece.getColor().equals("white") && piece.getY() == 2){
+                        System.out.println(squares[3][piece.getX()].getLocation());
+                        if (squares[3][piece.getX()].getPiece() != null && squares[3][piece.getX()].getPiece().isCanEnPassent()){
+                            squares[3][piece.getX()].getPiece().getImage().setIcon(null);
+                            squares[3][piece.getX()].setPiece(null);
+
+                        }
+                    }
+                }
+                for (int i = 0; i < 8; i++){
+                    for (int j = 0; j < 8; j++){
+                        if (squares[i][j].getPiece() != null && squares[i][j].getPiece().getClass().equals(Pawn.class)){
+                            if (squares[i][j].getPiece().isCanEnPassent() && squares[i][j].getPiece().getHasNotMove()){
+                                squares[i][j].getPiece().setCanEnPassent(false);
+                                squares[i][j].getPiece().setHasNotMove(false);
                             }
                         }
-                        else {
-                            if (piece.getY() != 4) {
-                                piece.setHasMove(false);
-                                piece.setCanEnPassent(false);
-                            }
-                        }
-                    }else
-                        piece.setHasMove(false);
+                    }
+                }
+
+                Class<? extends Piece> c = piece.getClass();
+
+                if (c.equals(King.class) || c.equals(Rook.class)){
+                    piece.setHasNotMove(false);
+                }
+                if (c.equals(Pawn.class)){
+                    if (piece.getY() == 3 || piece.getY() == 4){
+                        piece.setCanEnPassent(piece.getHasNotMove());
+                    }
+                    else piece.setHasNotMove(false);
                 }
             }
             if (turn.equals("white")){

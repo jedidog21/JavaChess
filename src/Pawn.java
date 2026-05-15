@@ -43,35 +43,37 @@ public class Pawn extends Piece{
                     if (y == 1 && s[y + 2][x].getPiece() == null)
                         squares.add(s[y + 2][x]);
                 }
-                if (s[y + 1][x+1].getPiece() != null) {
+                if (s[y + 1][x + 1].getPiece() != null) {
                     if (!s[y + 1][x + 1].getPiece().getColor().equals(color)) {
                         squares.add(s[y + 1][x + 1]);
                     }
                 }
-                if (s[y + 1][x-1].getPiece() != null) {
+                if (s[y + 1][x - 1].getPiece() != null) {
                     if (!s[y + 1][x - 1].getPiece().getColor().equals(color)) {
                         squares.add(s[y + 1][x - 1]);
                     }
                 }
 
                 //en passant
-                if (s[y][x+1].getPiece() != null){
-                    if (s[y][x+1].getPiece().getClass() == Pawn.class && s[y][x+1].getPiece().getLastMoved() == 1){
-                        squares.add(s[y+1][x+1]);
+                Piece piece = s[y][x + 1].getPiece();
+                if (piece != null && piece.getClass().equals(Pawn.class) && !piece.getColor().equals(color)) {
+                    if (piece.isCanEnPassent()) {
+                        squares.add(s[y + 1][x + 1]);
                     }
                 }
-
-                if (s[y][x-1].getPiece() != null){
-                    if (s[y][x-1].getPiece().getClass() == Pawn.class && s[y][x-1].getPiece().getLastMoved() == 1){
-                        squares.add(s[y+1][x-1]);
+                piece = s[y][x - 1].getPiece();
+                if (piece != null && piece.getClass().equals(Pawn.class) && !piece.getColor().equals(color)) {
+                    if (piece.isCanEnPassent()) {
+                        squares.add(s[y + 1][x - 1]);
                     }
                 }
             }
             else if (color.equals("white")){
                 if (s[y - 1][x].getPiece() == null) {
-                squares.add(s[y - 1][x]);
-                if (y == 6 && s[y - 2][x].getPiece() == null)
-                    squares.add(s[y - 2][x]);
+
+                    squares.add(s[y - 1][x]);
+                    if (y == 6 && s[y - 2][x].getPiece() == null)
+                        squares.add(s[y - 2][x]);
                 }
                 if (s[y - 1][x+1].getPiece() != null) {
                     if (!s[y - 1][x + 1].getPiece().getColor().equals(color)) {
@@ -85,14 +87,16 @@ public class Pawn extends Piece{
                 }
 
                 //en passant
-                if (s[y][x+1].getPiece() != null){
-                    if (s[y][x+1].getPiece().getClass() == Pawn.class && s[y][x+1].getPiece().isCanEnPassent()){
+                Piece piece = s[y][x+1].getPiece();
+
+                if (piece != null && piece.getClass().equals(Pawn.class) && !piece.getColor().equals(color)){
+                    if (piece.isCanEnPassent()){
                         squares.add(s[y-1][x+1]);
                     }
                 }
-
-                if (s[y][x-1].getPiece() != null){
-                    if (s[y][x-1].getPiece().getClass() == Pawn.class && s[y][x-1].getPiece().isCanEnPassent()){
+                piece = s[y][x-1].getPiece();
+                if (piece != null && piece.getClass().equals(Pawn.class) && !piece.getColor().equals(color)){
+                    if (piece.isCanEnPassent()){
                         squares.add(s[y-1][x-1]);
                     }
                 }
